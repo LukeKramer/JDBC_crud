@@ -1,0 +1,33 @@
+Testsuite: CRUDTest
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.033 sec
+------------- Standard Output ---------------
+Successful connection
+
+
+Record was Deleted Successfully! 
+Successful connection
+
+
+Record was Updated Successfully! 
+Successful connection
+
+
+Successful connection
+
+
+Successful connection
+
+
+Record was Inserted Successfully! 
+Successful connection
+
+
+Table was created Successfully! 
+------------- ---------------- ---------------
+
+Testcase: delete_records_from_table took 0.626 sec
+Testcase: update_record_into_table took 0.062 sec
+Testcase: establish_connection_to_database took 0.047 sec
+Testcase: select_record_from_table took 0.063 sec
+Testcase: insert_record_into_table took 0.062 sec
+Testcase: create_table_into_database took 0.157 sec

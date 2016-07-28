@@ -1,0 +1,55 @@
+<project name="Drivers" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant" default="begin">
+
+    <property file="${basedir}/build.properties" />
+
+    <target name="begin" description="does it all in order" depends="clean,getdependencies,JunitTest">
+        <echo message="Complete"/>
+    </target>
+
+    <target name="getdependencies" description="retrieve the dependencies and more">
+
+        <ivy:settings url="http://artifactory.cpt.intecbilling.com/ivy/ivysettings.xml"/>
+
+        <ivy:resolve file="${basedir}/ivy_dependencies.xml" />
+
+        <ivy:retrieve type="jar,bundle" pattern="${basedir}/${lib.folder}/[artifact].[ext]" ivypattern="${basedir}/${lib.folder}/[artifact].[ext]" />
+    </target>
+
+    <target name="compile" depends="getdependencies">
+
+        <javac destdir="${basedir}/out/test/SQL_database_JDBC" srcdir="${basedir}/src" includeantruntime="false">
+
+            <classpath>
+                <pathelement location="${basedir}/lib/junit.jar"/>
+                <pathelement location="${basedir}/lib/ojdbc7.jar"/>
+                <pathelement location="${basedir}/lib/hamcrest-core.jar"/>
+            </classpath>
+
+        </javac>
+
+    </target>
+
+    <target name="JunitTest" depends="compile">
+
+        <junit printsummary="yes" haltonfailure="yes">
+            <classpath>
+                <pathelement location="${basedir}/out/test/SQL_database_JDBC"/>
+                <pathelement location="${basedir}/lib/junit.jar"/>
+                <pathelement location="${basedir}/lib/ojdbc7.jar"/>
+                <pathelement location="${basedir}/lib/hamcrest-core.jar"/>
+            </classpath>
+
+            <test name="CRUDTest" haltonfailure="no" outfile="result">
+                <formatter type="plain"/>
+                <formatter type="xml"/>
+
+            </test>
+        </junit>
+    </target>
+
+    <target name="clean" description="removes lib folder">
+        <delete dir="${basedir}/lib"/>
+    </target>
+
+
+</project>
